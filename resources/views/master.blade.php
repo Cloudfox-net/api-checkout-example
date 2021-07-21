@@ -39,7 +39,7 @@
             </div>
             <div class="col-1 col-md-6"></div>
             <div class="col-7 col-md-5 text-end">
-                <p>Documentação: <a href="https://cloudfox.net">https://cloudfox.net</p>
+                <p>Documentação: <a href="https://sandbox.cloudfox.net/guide">https://sandbox.cloudfox.net/guide</p>
             </div>
         </div>                
 	</footer>

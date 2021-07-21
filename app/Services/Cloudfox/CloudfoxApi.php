@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class CloudfoxApi
 {
     private $apiToken = "";
-    private $apiUrl = "http://dev.checkout.net/api";
+    private $apiUrl = "https://sandbox.cloudfox.net/api";
     public $curlInfo = [];
 
     public function __construct($apiToken){
