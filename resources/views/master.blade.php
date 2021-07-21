@@ -45,7 +45,7 @@
 	</footer>
     
     <!-- copiar e colar link gerado pelo sirus -->
-    <script src="https://sandbox.checkout.net/api/v1/antifraud/6q510ZOjpX3E9D4"></script>
+    <script src="{{config('cloudfox.url_script')}}"></script>
 
     <!-- BEGININ - colar e copiar o script para inicializar o script cloudfox -->
     <script>        

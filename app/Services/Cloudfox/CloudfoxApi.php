@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class CloudfoxApi
 {
     private $apiToken = "";
-    private $apiUrl = "https://sandbox.cloudfox.net/api";
+    private $apiUrl = "";
     public $curlInfo = [];
 
     public function __construct($apiToken){
@@ -17,6 +17,11 @@ class CloudfoxApi
             throw new Exception("Informe Api Token."); 
         }
         $this->apiToken = $apiToken;
+
+        $this->apiUrl = config("cloudfox.url_sandbox");
+        if(config('cloudfox.environment')=='production'){
+            $this->apiUrl = config('cloudfox.url_production');
+        }
     }
 
     public function getInstallments($data){
