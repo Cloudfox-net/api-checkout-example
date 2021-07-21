@@ -43,9 +43,12 @@
             </div>
         </div>                
 	</footer>
-    <script src="http://dev.checkout.net/api/v1/antifraud/6q510ZOjpX3E9D4"></script>
-    <script>
-        // Set this on frontend
+    
+    <!-- copiar e colar link gerado pelo sirus -->
+    <script src="https://sandbox.checkout.net/api/v1/antifraud/6q510ZOjpX3E9D4"></script>
+
+    <!-- BEGININ - colar e copiar o script para inicializar o script cloudfox -->
+    <script>        
         let sensitiveFields = ['card_number','card_name','card_cvv'];
         let secretFields = [''];
         if (script.readyState) {  //IE
@@ -61,6 +64,8 @@
             };
         }        
     </script>    
+    <!-- END -->
+
     <script type="text/javascript" src="assets/jquery-loading.min.js"></script>
     <script type="text/javascript" src="js/index.js?v=1" defer></script>
   </body>
