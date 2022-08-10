@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     //Token gerado no Sirius
-    private $api_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxNSIsImp0aSI6ImRjNTQxNTdmNGU0NTllNTA4YjMzODQ3YmQ1NzViNGZhODRmMmU3NDAxMjQzM2MxZDEyMDA4NTU5ODExYWQ2ZDk0MGViNjQ2ZjRlNzJlZGI2IiwiaWF0IjoxNjQ0NjA4MDg0Ljg1NDU2NywibmJmIjoxNjQ0NjA4MDg0Ljg1NDU3LCJleHAiOjI1OTEyOTI4ODQuODQ5MDgzLCJzdWIiOiIyNiIsInNjb3BlcyI6WyJzYWxlIl19.OLWqh67427mw1ArmxUkYG-A81nizz17HANly-XuOkxtws3Otd6bqi3jA-wJncWhk9FfrtwKnuVQ6447vTzRohrNzvpNbRvE3fH0eSMhbGsbNHuLjYXa9TA55pQ-TGOgsKPy13WBnKDrJRTFvBvAJ4UzCuCQGaADZRmytVTAm7zgqRm6ZZcZiCs-TqfRjKvSN_Y6JBMqxFdgJEspApDH9-UsfWKRZOGUDZ-26eW7VwqfyIJnRsumXgfFdhtnhnvmiHmN8Ts4YaB3g8VHupfjVdDraYMz_Tz91bb0MRX_uOBBXnwyT4wQ--3UuHoPLLa8YIAPwHVPWS-Fo5dMphu7RSGXzCPiEWdTQOjAEyEsOX8idpdxF62gwEi7lgpcROORSCuugxUnkdLHUWbmKS4_I0hC6FB8yqWY01CeoggqNxS1lBJ3nWxikMmUUxAKFKuMPghoUXGBJsLBJ_AOeqoOf0iJnhzqQQRSx2hnWkxUsrGXoypyTIBiPOVpcLckWDtlL9XYDu9YuESJ4itTNOxIJbChJx71zN8KMbbm5rZmwET9P6o8lB6E-EyNm8MNrPEcFI1zxPmZBoU4j-mo7hmKMnPNXnE1_UBB3hx0vpoNU2UauGV9zJqWRdfApSLnZlVp6m7aYV7waauWatTh8V2JXQCK5xjNFFFy-CHgS0CrqKsc";
+    private $api_token;
     private $installments_interest_free = 1;
+
+    public function __construct()
+    {
+        $this->api_token = config('cloudfox.api_token');
+    }
 
     public function payment(Request $request)
     {
