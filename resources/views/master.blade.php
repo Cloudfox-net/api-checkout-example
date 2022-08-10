@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example Cloudfox Api checkout integration</title>  
+        <title>Example Cloudfox Api checkout integration</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="css/index.css">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <meta name="csrf-token" content="{{csrf_token()}}">
     </head>
@@ -22,7 +22,7 @@
             <!--payment-->
             @include('partials.payment_method')
 
-            <!-- credit card -->               
+            <!-- credit card -->
             @include('partials.payment_credit_card')
             <!-- boleto -->
             @include('partials.payment_boleto')
@@ -41,29 +41,30 @@
             <div class="col-7 col-md-5 text-end">
                 <p>Documentação: <a href="https://sandbox.cloudfox.net/guide">https://sandbox.cloudfox.net/guide</p>
             </div>
-        </div>                
+        </div>
 	</footer>
-    
+
     <!-- copiar e colar link gerado pelo sirus -->
-    <script src="{{config('cloudfox.url_script')}}"></script>
+    <script id="cfaf" src="{{config('cloudfox.url_script')}}" async></script>
 
     <!-- BEGININ - colar e copiar o script para inicializar o script cloudfox -->
-    <script>        
+    <script>
         let sensitiveFields = ['card_number','card_name','card_cvv'];
         let secretFields = [''];
-        if (script.readyState) {  //IE
-            script.onreadystatechange = function () {
-                if (script.readyState == "loaded" || script.readyState == "complete") {
-                    script.onreadystatechange = null;
-                    CloudfoxAntifraud.initAntifraud(sensitiveFields, secretFields);
+        const cfaf = document.getElementById('cfaf');
+        if (cfaf.readyState) {  //IE
+            cfaf.onreadystatechange = function () {
+                if (cfaf.readyState == "loaded" || script.readyState == "complete") {
+                    cfaf.onreadystatechange = null;
+                    cfa.init(sensitiveFields, secretFields);
                 }
             };
         } else {  //Others
-            script.onload = function () {
-                CloudfoxAntifraud.initAntifraud(sensitiveFields, secretFields);
+            cfaf.onload = function () {
+                cfa.init(sensitiveFields, secretFields);
             };
-        }        
-    </script>    
+        }
+    </script>
     <!-- END -->
 
     <script type="text/javascript" src="assets/jquery-loading.min.js"></script>

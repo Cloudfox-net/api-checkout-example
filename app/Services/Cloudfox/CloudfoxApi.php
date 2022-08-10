@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Services\Cloudfox;
 
 use App\Exceptions\CloudfoxException;
 use Cache;
 use Exception;
-use Illuminate\Support\Facades\Log;
 
 class CloudfoxApi
 {
@@ -12,51 +12,64 @@ class CloudfoxApi
     private $apiUrl = "";
     public $curlInfo = [];
 
-    public function __construct($apiToken){
-        if(empty($apiToken)){
-            throw new Exception("Informe Api Token."); 
+    public function __construct($apiToken)
+    {
+        if (empty($apiToken)) {
+            throw new Exception("Informe Api Token.");
         }
         $this->apiToken = $apiToken;
 
         $this->apiUrl = config("cloudfox.url_sandbox");
-        if(config('cloudfox.environment')=='production'){
+        if (config('cloudfox.environment') == 'production') {
             $this->apiUrl = config('cloudfox.url_production');
         }
     }
 
-    public function getInstallments($data){
+    public function getInstallments($data)
+    {
         $response = $this->requestGnAuth('getInstallments', $data);
-        if($response['status']==200){
+        if ($response['status'] == 200) {
             return json_decode($response['result']);
         }
-        throw new CloudfoxException("Ops! algo deu errado na Api Cloudfox", $response['status'], null, json_decode($response['result']));        
+        throw new CloudfoxException(
+            "Ops! algo deu errado na Api Cloudfox",
+            $response['status'],
+            null,
+            json_decode($response['result'])
+        );
     }
 
-    public function sendPayment($data){
-        $response = $this->requestGnAuth('payment', $data);        
-        if($response['status']==200){
+    public function sendPayment($data)
+    {
+        $response = $this->requestGnAuth('payment', $data);
+        if ($response['status'] == 200) {
             return json_decode($response['result']);
         }
-        throw new CloudfoxException("Ops! algo deu errado na Api Cloudfox", $response['status'], null, json_decode($response['result']));        
+        throw new CloudfoxException(
+            "Ops! algo deu errado na Api Cloudfox",
+            $response['status'],
+            null,
+            json_decode($response['result'])
+        );
     }
 
     public function getMethod($endpoint, $variables)
     {
         $endpoints = [
-            "payment" => [
-                "route" => "/v1/payments",
+            "payment"         => [
+                "route"  => "/v1/payments",
                 "method" => "POST"
             ],
-            "cancelPayment" => [
-                "route" => "/v1/cancel payment/:sale_id",
+            "cancelPayment"   => [
+                "route"  => "/v1/cancel payment/:sale_id",
                 "method" => "POST"
             ],
-            "listSales" => [
-                "route" => "/v1/sales/:sale_id",
+            "listSales"       => [
+                "route"  => "/v1/sales/:sale_id",
                 "method" => "GET"
             ],
             "getInstallments" => [
-                "route" => "/v1/get-installments",
+                "route"  => "/v1/get-installments",
                 "method" => "POST"
             ]
         ];
@@ -79,7 +92,7 @@ class CloudfoxApi
         }
         return null;
     }
-    
+
     public function requestGnAuth($endpoint, $data = null, $variables = null)
     {
         $headers = [
@@ -95,13 +108,12 @@ class CloudfoxApi
 
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $arrEndpoint['method']);
 
-        if (!is_null($data)) 
-        {
+        if (!is_null($data)) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        
+
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
         $result = curl_exec($curl);
@@ -111,6 +123,6 @@ class CloudfoxApi
 
         curl_close($curl);
 
-        return ['status'=>$httpCode,'result'=>$result];
+        return ['status' => $httpCode, 'result' => $result];
     }
 }
